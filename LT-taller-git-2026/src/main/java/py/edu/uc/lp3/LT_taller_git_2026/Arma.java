@@ -1,4 +1,4 @@
-package py.edu.uc.lp3.herencia;
+package py.edu.uc.lp3.lt_taller_git_2026;
 
 public class Arma {
     protected int danio;
