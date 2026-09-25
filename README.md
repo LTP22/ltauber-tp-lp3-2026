@@ -12,6 +12,15 @@ Publicar un servicio HTTP que versiona el modelado de clases con herencia, sobre
 
 ```mermaid
 classDiagram
+    class Jugador {
+        #String nombre
+        #List~Arma~ inventario
+        +agregarArma(Arma)
+        +dispararConTodas()
+        +recargarTodas()
+        +lanzarGranadas()
+    }
+    
     class Arma {
         #int danio
         #float precio
@@ -71,6 +80,7 @@ classDiagram
         +getComportamiento() String
     }
     
+    Jugador --> Arma : contiene
     Arma <|-- ArmaDeFuego
     Arma <|-- Granada
     ArmaDeFuego <|-- Pistola
