@@ -238,6 +238,59 @@ curl http://localhost:8080/arma/granada-detonadora
 # JSON con: comportamiento = "Explota con dano 60 en radio 18.0m, aturdiendo 2.0s y causando visibilidad 100.0."
 ```
 
+**Crear Subfusil:**
+```bash
+curl http://localhost:8080/arma/subfusil
+# JSON con: comportamiento = "Dispara con precision 0.70 y retroceso 0.5."
+```
+
+### 3.b Trabajar con Jugador e Inventario
+
+**Crear Jugador:**
+```bash
+curl -X POST http://localhost:8080/jugador \
+  -H "Content-Type: application/json" \
+  -d '{"nombre": "Player1"}'
+# Devuelve: {"id": "1", "nombre": "Player1", "inventario": []}
+```
+
+**Agregar Arma al Inventario:**
+```bash
+curl -X POST http://localhost:8080/jugador/1/agregar-arma \
+  -H "Content-Type: application/json" \
+  -d '{"danio": 25, "precio": 500, "equipo": "T", "peso": 1.5, "precision": 0.75, "balasCargador": 12, "cargadores": 3, "retroceso": 0.3, "tiempoRecarga": 0.5, "animacion": "pistol_fire"}'
+```
+
+**Obtener Jugador con Inventario:**
+```bash
+curl http://localhost:8080/jugador/1
+# Devuelve: {
+#   "id": "1",
+#   "nombre": "Player1",
+#   "inventario": [
+#     {"danio": 25, "comportamiento": "Dispara con precision 0.75 y retroceso 0.3.", ...}
+#   ]
+# }
+```
+
+**Disparar con Todas las Armas:**
+```bash
+curl -X POST http://localhost:8080/jugador/1/disparar
+# Resultado: Cada ArmaDeFuego en el inventario dispara (salida en consola)
+```
+
+**Recargar Todas las Armas:**
+```bash
+curl -X POST http://localhost:8080/jugador/1/recargar
+# Resultado: Cada ArmaDeFuego en el inventario recarga
+```
+
+**Lanzar Todas las Granadas:**
+```bash
+curl -X POST http://localhost:8080/jugador/1/lanzar-granadas
+# Resultado: Cada Granada en el inventario se lanza (salida en consola)
+```
+
 ### 4. Verificar en git
 
 ```bash
