@@ -147,6 +147,24 @@ El controller declara variables de tipo `Arma` (la clase base abstracta) pero co
 - **Spring Boot 4.1.1**
 - **Maven**
 
+## Colaboración
+
+Este proyecto fue desarrollado en colaboración con:
+
+- **[agaona (ferue)](https://github.com/ferue)** — Desarrolló el sistema de tienda e inventario de venta en la rama `ltauber-contribucion-lp3` ([PR](https://github.com/ferue/agaona-taller-git-2026/pull/new/ltauber-contribucion-lp3))
+
+La colaboración demuestra los principios de trabajo en equipo usando Git:
+- Clonación de repositorios
+- Creación de ramas de contribución
+- Pull Requests para revisión de código
+- Polimorfismo sin condicionales (`if`) en ambos proyectos
+
+---
+
+**Proyectos relacionados:**
+- [ltauber-tp-lp3-2026](https://github.com/LTP22/ltauber-tp-lp3-2026) (este proyecto)
+- [agaona-taller-git-2026](https://github.com/ferue/agaona-taller-git-2026) (repo del compañero)
+
 ## Licencia
 
 Apache License 2.0
@@ -154,4 +172,4 @@ Apache License 2.0
 ---
 
 Entrega del Taller Git 2026 - Programación Orientada a Objetos (LP3)
-Universidad Católica - Facultad de Ciencias Exactas y Naturales
+Universidad Católica - Facultad de Ciencias y Tecnología
