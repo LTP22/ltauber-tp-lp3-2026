@@ -23,6 +23,11 @@ public class ArmaDeFuego extends Arma {
         this.animacion = animacion;
     }
 
+    @Override
+    public String getComportamiento() {
+        return "Dispara con precision " + precision + " y retroceso " + retroceso + ".";
+    }
+
     public void disparar() {
         System.out.println("Disparando arma de fuego.");
     }

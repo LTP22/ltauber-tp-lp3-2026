@@ -1,6 +1,6 @@
 package py.edu.uc.lp3.lt_taller_git_2026;
 
-public class Arma {
+public abstract class Arma {
     protected int danio;
     protected float precio;
     protected String equipo;
@@ -15,6 +15,8 @@ public class Arma {
         this.equipo = equipo;
         this.peso = peso;
     }
+
+    public abstract String getComportamiento();
 
     public void comprar() {
         System.out.println("Comprando arma.");

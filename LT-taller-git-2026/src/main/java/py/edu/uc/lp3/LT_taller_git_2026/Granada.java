@@ -1,6 +1,6 @@
 package py.edu.uc.lp3.lt_taller_git_2026;
 
-public class Granada extends Arma {
+public abstract class Granada extends Arma {
     protected float radioExplosion;
     protected float distanciaLanzamiento;
     protected float aturdimiento;
@@ -17,6 +17,11 @@ public class Granada extends Arma {
         this.distanciaLanzamiento = distanciaLanzamiento;
         this.aturdimiento = aturdimiento;
         this.visibilidad = visibilidad;
+    }
+
+    @Override
+    public String getComportamiento() {
+        return "Se lanza a " + distanciaLanzamiento + "m y explota con radio " + radioExplosion + "m.";
     }
 
     public void lanzar() {
