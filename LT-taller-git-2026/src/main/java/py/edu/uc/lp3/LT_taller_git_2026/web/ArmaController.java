@@ -1,9 +1,16 @@
-package py.edu.uc.lp3.lt_taller_git_2026;
+package py.edu.uc.lp3.lt_taller_git_2026.web;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import py.edu.uc.lp3.lt_taller_git_2026.cs2.Arma;
+import py.edu.uc.lp3.lt_taller_git_2026.cs2.Pistola;
+import py.edu.uc.lp3.lt_taller_git_2026.cs2.Rifle;
+import py.edu.uc.lp3.lt_taller_git_2026.cs2.Francotirador;
+import py.edu.uc.lp3.lt_taller_git_2026.cs2.GranaFlash;
+import py.edu.uc.lp3.lt_taller_git_2026.cs2.GranaHumo;
+import py.edu.uc.lp3.lt_taller_git_2026.cs2.GranaDetonadora;
 
 @RestController
 @RequestMapping("/arma")

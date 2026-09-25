@@ -1,4 +1,4 @@
-package py.edu.uc.lp3.lt_taller_git_2026;
+package py.edu.uc.lp3.lt_taller_git_2026.cs2;
 
 public class GranaFlash extends Granada {
     protected float ceguera;
