@@ -1,4 +1,4 @@
-package py.edu.uc.lp3.lt_taller_git_2026.web;
+package py.edu.uc.lp3.LT_taller_git_2026.web;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
