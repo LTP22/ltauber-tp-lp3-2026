@@ -288,7 +288,7 @@ git status
 
 ---
 
-**Alumno:** LTP22  
+**Alumno:** Luis Tauber (LTP22)  
 **Fecha:** 2026-09-25  
 **Facultad:** Facultad de Ciencias y Tecnología  
 **Licencia:** Apache 2.0

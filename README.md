@@ -52,6 +52,10 @@ classDiagram
         +rafagaAutomatica()
     }
     
+    class Subfusil {
+        +disparoAutomatico()
+    }
+    
     class Francotirador {
         +disparoSinRuido()
     }
@@ -85,6 +89,7 @@ classDiagram
     Arma <|-- Granada
     ArmaDeFuego <|-- Pistola
     ArmaDeFuego <|-- Rifle
+    ArmaDeFuego <|-- Subfusil
     ArmaDeFuego <|-- Francotirador
     Granada <|-- GranaFlash
     Granada <|-- GranaHumo
@@ -99,6 +104,7 @@ classDiagram
 ### ArmaController
 - `GET /arma/pistola?danio=25&precio=500&...` — Crea y retorna una Pistola en JSON
 - `GET /arma/rifle?danio=77&precio=2100&...` — Crea y retorna un Rifle en JSON
+- `GET /arma/subfusil?danio=20&precio=1200&...` — Crea y retorna un Subfusil en JSON
 - `GET /arma/francotirador?danio=115&precio=4750&...` — Crea y retorna un Francotirador en JSON
 - `GET /arma/granada-flash?danio=0&precio=200&...` — Crea y retorna una Granada Flash en JSON
 - `GET /arma/granada-humo?danio=0&precio=300&...` — Crea y retorna una Granada Humo en JSON

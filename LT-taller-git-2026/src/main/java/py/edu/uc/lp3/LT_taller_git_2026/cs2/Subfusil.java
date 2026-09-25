@@ -7,6 +7,12 @@ public class Subfusil extends ArmaDeFuego {
     public Subfusil() {
     }
 
+    public Subfusil(int danio, float precio, String equipo, float peso,
+                    float precision, int balasCargador, int cargadores,
+                    float retroceso, float tiempoRecarga, String animacion) {
+        super(danio, precio, equipo, peso, precision, balasCargador, cargadores, retroceso, tiempoRecarga, animacion);
+    }
+
     public Subfusil(int precio, int nivel, String nombre) {
         this.precio = precio;
         this.nivel = nivel;

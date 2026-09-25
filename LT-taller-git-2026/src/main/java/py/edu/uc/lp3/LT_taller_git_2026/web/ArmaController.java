@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import py.edu.uc.lp3.LT_taller_git_2026.cs2.Arma;
 import py.edu.uc.lp3.LT_taller_git_2026.cs2.Pistola;
 import py.edu.uc.lp3.LT_taller_git_2026.cs2.Rifle;
+import py.edu.uc.lp3.LT_taller_git_2026.cs2.Subfusil;
 import py.edu.uc.lp3.LT_taller_git_2026.cs2.Francotirador;
 import py.edu.uc.lp3.LT_taller_git_2026.cs2.GranaFlash;
 import py.edu.uc.lp3.LT_taller_git_2026.cs2.GranaHumo;
@@ -45,6 +46,21 @@ public class ArmaController {
             @RequestParam(defaultValue = "2.0") float tiempoRecarga,
             @RequestParam(defaultValue = "rifle_fire") String animacion) {
         return new Rifle(danio, precio, equipo, peso, precision, balasCargador, cargadores, retroceso, tiempoRecarga, animacion);
+    }
+
+    @GetMapping("/subfusil")
+    public Arma crearSubfusil(
+            @RequestParam(defaultValue = "20") int danio,
+            @RequestParam(defaultValue = "1200") float precio,
+            @RequestParam(defaultValue = "T") String equipo,
+            @RequestParam(defaultValue = "2.2") float peso,
+            @RequestParam(defaultValue = "0.70") float precision,
+            @RequestParam(defaultValue = "25") int balasCargador,
+            @RequestParam(defaultValue = "4") int cargadores,
+            @RequestParam(defaultValue = "0.5") float retroceso,
+            @RequestParam(defaultValue = "1.5") float tiempoRecarga,
+            @RequestParam(defaultValue = "smg_fire") String animacion) {
+        return new Subfusil(danio, precio, equipo, peso, precision, balasCargador, cargadores, retroceso, tiempoRecarga, animacion);
     }
 
     @GetMapping("/francotirador")

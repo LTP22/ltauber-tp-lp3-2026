@@ -1,0 +1,94 @@
+╔════════════════════════════════════════════════════════════════════╗
+║              VERIFICACIÓN EXHAUSTIVA DE REQUISITOS                 ║
+╚════════════════════════════════════════════════════════════════════╝
+
+✅ (1) REPOSITORIO GITHUB
+  ├─ Nombre: ltauber-tp-lp3-2026 (iniciales LT)
+  ├─ Público: SÍ
+  ├─ README.md: SÍ (con arquitectura completa)
+  └─ Licencia Apache 2.0: SÍ
+
+✅ (2) SPRING BOOT DESDE START.SPRING.IO
+  ├─ Maven: SÍ
+  ├─ Java 21: SÍ
+  ├─ Spring Web (spring-boot-starter-web): SÍ
+  ├─ ./mvnw spring-boot:run funciona: SÍ
+  └─ pom.xml limpio (sin JPA, H2, extras): SÍ
+
+✅ (3) CLASES DE DOMINIO (10 archivos)
+  ├─ Arma.java (abstracta, método getComportamiento()): SÍ
+  ├─ ArmaDeFuego.java (extends Arma): SÍ
+  ├─ Granada.java (extends Arma, abstracta): SÍ
+  ├─ Pistola.java (extends ArmaDeFuego): SÍ
+  ├─ Rifle.java (extends ArmaDeFuego): SÍ
+  ├─ Subfusil.java (extends ArmaDeFuego): SÍ
+  ├─ Francotirador.java (extends ArmaDeFuego): SÍ
+  ├─ GranaFlash.java (extends Granada): SÍ
+  ├─ GranaHumo.java (extends Granada): SÍ
+  └─ GranaDetonadora.java (extends Granada): SÍ
+
+✅ (4) CONTROLLERS Y ENDPOINTS
+  ├─ IndexController (GET /): SÍ
+  ├─ ArmaController (6 endpoints GET /arma/*): SÍ
+  │  ├─ /arma/pistola
+  │  ├─ /arma/rifle
+  │  ├─ /arma/francotirador
+  │  ├─ /arma/granada-flash
+  │  ├─ /arma/granada-humo
+  │  └─ /arma/granada-detonadora
+  └─ JugadorController (6 endpoints): SÍ
+     ├─ POST /jugador (create)
+     ├─ POST /jugador/{id}/agregar-arma
+     ├─ GET /jugador/{id}
+     ├─ POST /jugador/{id}/disparar
+     ├─ POST /jugador/{id}/recargar
+     └─ POST /jugador/{id}/lanzar-granadas
+
+✅ (5) PATRÓN ABSTRACTO - HERENCIA - POLIMORFISMO
+  ├─ Arma.getComportamiento() abstracto: SÍ
+  ├─ ArmaDeFuego implementa getComportamiento(): SÍ
+  ├─ Granada implementa getComportamiento(): SÍ
+  ├─ Controller usa tipo Arma (padre): SÍ
+  ├─ JSON incluye comportamiento: SÍ
+  ├─ Sin if por tipo en controllers: SÍ
+  └─ Encapsulamiento (protected): SÍ
+
+✅ (6) MERMAID - DIAGRAMA DE CLASES EN README
+  ├─ Arma + abstracción: SÍ
+  ├─ ArmaDeFuego + métodos: SÍ
+  ├─ Granada + métodos: SÍ
+  ├─ Pistola: SÍ
+  ├─ Rifle: SÍ
+  ├─ Subfusil: ❌ FALTA - NO APARECE EN DIAGRAMA
+  ├─ Francotirador: SÍ
+  ├─ GranaFlash: SÍ
+  ├─ GranaHumo: SÍ
+  ├─ GranaDetonadora: SÍ
+  ├─ Jugador + inventario: SÍ
+  ├─ Relaciones de herencia: SÍ
+  └─ Atributos y métodos: SÍ
+
+✅ OPCIÓN B - REQUISITOS ESPECÍFICOS
+  ├─ Inventario puede contener cualquier Arma: SÍ (List<Arma>)
+  ├─ Pedir que dispare, recargue, se muestre: SÍ
+  ├─ Sin if por cada tipo: SÍ
+  ├─ Cálculo de daño en clase: SÍ
+  ├─ Control de munición en clase: SÍ
+  ├─ Cooldown (granadas) en clase: SÍ
+  ├─ Clase padre concentra contrato: SÍ
+  └─ Subclases especializan comportamiento: SÍ
+
+✅ ENTREGAS REQUERIDAS
+  ├─ ESPECIFICACIONES.md: SÍ
+  ├─ README.md completo: SÍ (falta actualizar Mermaid)
+  ├─ GitHub repository link: SÍ (https://github.com/LTP22/ltauber-tp-lp3-2026)
+  ├─ Colaboración con compañero: SÍ (merged PR con agaona)
+  └─ Código compilando: SÍ
+
+═══════════════════════════════════════════════════════════════════════
+
+⚠️  ACCIÓN REQUERIDA:
+   Agregar "Subfusil" al diagrama Mermaid en README.md
+   (líneas 13-92)
+
+═══════════════════════════════════════════════════════════════════════
