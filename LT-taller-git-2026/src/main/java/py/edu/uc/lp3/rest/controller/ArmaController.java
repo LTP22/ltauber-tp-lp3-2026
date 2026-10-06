@@ -1,4 +1,4 @@
-package py.edu.uc.lp3.LT_taller_git_2026.web;
+package py.edu.uc.lp3.rest.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 // Corrección de casing: LT en mayúsculas
-import py.edu.uc.lp3.LT_taller_git_2026.cs2.Arma;
-import py.edu.uc.lp3.LT_taller_git_2026.cs2.Pistola;
-import py.edu.uc.lp3.LT_taller_git_2026.cs2.Rifle;
-import py.edu.uc.lp3.LT_taller_git_2026.cs2.Subfusil;
-import py.edu.uc.lp3.LT_taller_git_2026.cs2.Francotirador;
-import py.edu.uc.lp3.LT_taller_git_2026.cs2.GranaFlash;
-import py.edu.uc.lp3.LT_taller_git_2026.cs2.GranaHumo;
-import py.edu.uc.lp3.LT_taller_git_2026.cs2.GranaDetonadora;
+import py.edu.uc.lp3.domain.Arma;
+import py.edu.uc.lp3.domain.Pistola;
+import py.edu.uc.lp3.domain.Rifle;
+import py.edu.uc.lp3.domain.Subfusil;
+import py.edu.uc.lp3.domain.Francotirador;
+import py.edu.uc.lp3.domain.GranaFlash;
+import py.edu.uc.lp3.domain.GranaHumo;
+import py.edu.uc.lp3.domain.GranaDetonadora;
 @RestController
 @RequestMapping("/arma")
 public class ArmaController {

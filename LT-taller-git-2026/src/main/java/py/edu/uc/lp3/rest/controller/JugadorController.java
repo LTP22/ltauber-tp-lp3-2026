@@ -1,7 +1,7 @@
-package py.edu.uc.lp3.LT_taller_git_2026.web;
+package py.edu.uc.lp3.rest.controller;
 
 import org.springframework.web.bind.annotation.*;
-import py.edu.uc.lp3.LT_taller_git_2026.cs2.*;
+import py.edu.uc.lp3.domain.*;
 
 import java.util.HashMap;
 import java.util.Map;
