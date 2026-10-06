@@ -149,10 +149,11 @@ curl.exe -X POST "http://localhost:8080/jugador/1/lanzar-granadas"   # granadasL
 
 ## 5. Commit de la solución
 
-El enlace exacto al commit que contiene la solución (código, pruebas, README, bitácora y este documento):
+El enlace exacto al commit que contiene la solución (código, pruebas, README y bitácora):
 
 **https://github.com/LTP22/ltauber-tp-lp3-2026/commit/193defe61e8b58b1c35ba76d23bfd778c1ca3156**
-n**Commit de las especificaciones** (el que agrega este documento): https://github.com/LTP22/ltauber-tp-lp3-2026/commit/ef134bb148861e1124902de772b6fa7b5bfe09e2
+
+**Commit de las especificaciones** (el que agrega este documento): https://github.com/LTP22/ltauber-tp-lp3-2026/commit/ef134bb148861e1124902de772b6fa7b5bfe09e2
 
 ---
 
