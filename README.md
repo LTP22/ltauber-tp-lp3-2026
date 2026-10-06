@@ -1,14 +1,25 @@
 # LT-taller-git-2026
 
-API REST de modelado de armas de Counter-Strike 2, implementada con Spring Boot. Demuestra los principios de herencia, polimorfismo y ocultamiento de información.
+API REST de modelado de armas de Counter-Strike 2, implementada con Spring Boot. Demuestra herencia, sobreescritura, sobrecarga y ocultamiento de la información.
 
 ## Objetivo
 
-Publicar un servicio HTTP que versiona el modelado de clases con herencia, sobreescritura y ocultamiento de la información, aplicado al dominio de armas de Counter-Strike 2.
+Publicar un servicio HTTP que versiona el modelado de clases de CS2 y separa las reglas del dominio (`domain`) de la capa HTTP (`rest.controller`).
+
+## Estructura de paquetes
+
+Sigue el template de la cátedra (`py.edu.uc.lp3`):
+
+```
+py.edu.uc.lp3
+├── Application                 arranque de Spring Boot
+├── domain                      reglas del juego (Arma, Granada, Jugador, ...)
+└── rest.controller             servicios REST (IndexController, ArmaController, JugadorController)
+```
 
 ## Arquitectura
 
-### Jerarquía de Clases
+### Jerarquía de clases
 
 ```mermaid
 classDiagram
@@ -16,11 +27,12 @@ classDiagram
         #String nombre
         #List~Arma~ inventario
         +agregarArma(Arma)
-        +dispararConTodas()
-        +recargarTodas()
-        +lanzarGranadas()
+        +dispararConTodas() int
+        +dispararConTodas(float distancia) int
+        +recargarTodas() int
+        +lanzarGranadas() int
     }
-    
+
     class Arma {
         #int danio
         #float precio
@@ -30,7 +42,7 @@ classDiagram
         +inspeccionar()
         +getComportamiento()* String
     }
-    
+
     class ArmaDeFuego {
         #float precision
         #int balasCargador
@@ -38,52 +50,71 @@ classDiagram
         #float retroceso
         #float tiempoRecarga
         #String animacion
-        +disparar()
-        +recargar()
-        +getComportamiento()* String
+        -int balasEnCargador
+        +disparar() int
+        +disparar(float distancia) int
+        +recargar() boolean
+        +tieneBalas() boolean
+        +getComportamiento() String
     }
-    
+
     class Pistola {
+        +Pistola(String equipo)
+        +Pistola(int danio, float precio, ...)
         +disparoUnico()
         +rafaga()
     }
-    
+
     class Rifle {
+        +Rifle(String equipo)
+        +Rifle(int danio, float precio, ...)
         +rafagaAutomatica()
     }
-    
+
     class Subfusil {
+        +Subfusil(String equipo)
+        +Subfusil(int danio, float precio, ...)
         +disparoAutomatico()
     }
-    
+
     class Francotirador {
+        +Francotirador(String equipo)
+        +Francotirador(int danio, float precio, ...)
         +disparoSinRuido()
     }
-    
+
     class Granada {
         #float radioExplosion
         #float distanciaLanzamiento
         #float aturdimiento
         #float visibilidad
-        +lanzar()
+        -boolean lanzada
+        +lanzar() boolean
         +explotar()
-        +getComportamiento()* String
+        +isLanzada() boolean
+        +getComportamiento() String
     }
-    
+
     class GranaFlash {
         #float ceguera
+        +GranaFlash(String equipo)
+        +GranaFlash(int danio, float precio, ...)
         +getComportamiento() String
     }
-    
+
     class GranaHumo {
         #float duracionHumo
+        +GranaHumo(String equipo)
+        +GranaHumo(int danio, float precio, ...)
         +getComportamiento() String
     }
-    
+
     class GranaDetonadora {
+        +GranaDetonadora(String equipo)
+        +GranaDetonadora(int danio, float precio, ...)
         +getComportamiento() String
     }
-    
+
     Jugador --> Arma : contiene
     Arma <|-- ArmaDeFuego
     Arma <|-- Granada
@@ -96,23 +127,76 @@ classDiagram
     Granada <|-- GranaDetonadora
 ```
 
+## Sobreescritura y sobrecarga
+
+### Sobreescritura
+
+`Arma` declara el método abstracto `getComportamiento()`. Cada rama lo implementa con la misma firma y su propio cuerpo:
+
+| Clase | Qué se agregó | Comportamiento devuelto |
+|---|---|---|
+| `Arma` | Método abstracto `getComportamiento()` | (contrato) |
+| `ArmaDeFuego` | Implementación para la rama de armas de fuego | "Dispara con precision X y retroceso Y." |
+| `Granada` | Implementación para la rama de granadas | "Se lanza a Xm y explota con radio Ym." |
+| `GranaFlash`, `GranaHumo`, `GranaDetonadora` | Sobreescriben `getComportamiento()` de `Granada` | Texto específico de cada granada |
+
+Se distingue por la firma idéntica y el cuerpo distinto. Cuál se ejecuta lo decide el tipo real del objeto en tiempo de ejecución: `ArmaController` declara `Arma`, pero devuelve `Pistola`, `GranaFlash`, etc.
+
+### Sobrecarga
+
+La sobrecarga usa el mismo nombre con distinta lista de parámetros. El compilador elige la versión según los argumentos.
+
+| Clase | Sobrecarga | Diferencia |
+|---|---|---|
+| `Pistola`, `Rifle`, `Subfusil`, `Francotirador` | `(String equipo)` y `(int danio, float precio, ...)` | Constructor simple con valores legales por defecto, o completo con todos los atributos |
+| `GranaFlash`, `GranaHumo`, `GranaDetonadora` | Igual que las armas de fuego | Idem |
+| `ArmaDeFuego` | `disparar()` y `disparar(float distancia)` | Sin distancia equivale a disparar a quemarropa; con distancia el daño baja |
+| `Jugador` | `dispararConTodas()` y `dispararConTodas(float distancia)` | Dispara todas las armas de fuego con balas, con o sin distancia |
+
+Los constructores completos llaman a `super(...)` para inicializar la clase padre.
+
+### Reglas del dominio
+
+- Los constructores lanzan `IllegalArgumentException` con valores fuera de rango (daño negativo, equipo distinto de `T`/`CT`, precisión fuera de `[0, 1]`, cargador sin balas, etc.).
+- `ArmaController` y `JugadorController` responden `400 Bad Request` con el motivo en el campo `error`.
+- No hay setters públicos. El estado cambia solo por mensajes: `disparar()` consume una bala, `recargar()` gasta un cargador, `lanzar()` consume la granada.
+
 ## Endpoints
 
 ### IndexController
-- `GET /` — Retorna un saludo inicial
+- `GET /` — Confirma que el servicio está vivo.
 
 ### ArmaController
-- `GET /arma/pistola?danio=25&precio=500&...` — Crea y retorna una Pistola en JSON
-- `GET /arma/rifle?danio=77&precio=2100&...` — Crea y retorna un Rifle en JSON
-- `GET /arma/subfusil?danio=20&precio=1200&...` — Crea y retorna un Subfusil en JSON
-- `GET /arma/francotirador?danio=115&precio=4750&...` — Crea y retorna un Francotirador en JSON
-- `GET /arma/granada-flash?danio=0&precio=200&...` — Crea y retorna una Granada Flash en JSON
-- `GET /arma/granada-humo?danio=0&precio=300&...` — Crea y retorna una Granada Humo en JSON
-- `GET /arma/granada-detonadora?danio=60&precio=400&...` — Crea y retorna una Granada Detonadora en JSON
+Construye la instancia desde los parámetros de la URL. Todos los parámetros son opcionales y tienen valor por defecto.
 
-## Polimorfismo en Acción
+- `GET /arma/pistola?danio=25&precio=500&equipo=T&precision=0.75&...`
+- `GET /arma/rifle?danio=77&precio=2100&...`
+- `GET /arma/subfusil?danio=20&precio=1200&...`
+- `GET /arma/francotirador?danio=115&precio=4750&...`
+- `GET /arma/granada-flash?danio=0&precio=200&...`
+- `GET /arma/granada-humo?danio=0&precio=300&...`
+- `GET /arma/granada-detonadora?danio=60&precio=400&...`
 
-El controller declara variables de tipo `Arma` (la clase base abstracta) pero construye instancias específicas de sus subclases. Cuando se devuelve el JSON, el campo `comportamiento` refleja el comportamiento específico de cada arma:
+Ejemplo de respuesta con un valor inválido:
+
+```
+GET /arma/pistola?danio=-5  →  400  {"error":"El daño no puede ser negativo"}
+```
+
+### JugadorController
+El inventario es en memoria. Los IDs son `1`, `2`, ... en orden de creación.
+
+- `POST /jugador?nombre=Luis` — Crea un jugador.
+- `POST /jugador/{id}/agregar-arma?tipo=pistola` — Agrega un arma. Tipos: `pistola`, `rifle`, `subfusil`, `francotirador`, `granada-flash`, `granada-humo`, `granada-detonadora`.
+- `GET /jugador/{id}` — Muestra el inventario con el estado de cada arma.
+- `POST /jugador/{id}/disparar` — Dispara todas las armas de fuego con balas.
+- `POST /jugador/{id}/disparar?distancia=50` — Igual, pero aplicando la distancia (sobrecarga).
+- `POST /jugador/{id}/recargar` — Recarga las armas de fuego.
+- `POST /jugador/{id}/lanzar-granadas` — Lanza las granadas que todavía no se usaron.
+
+## Polimorfismo en acción
+
+El controller declara variables de tipo `Arma`, pero construye instancias concretas. El campo `comportamiento` del JSON sale del método sobreescrito de cada clase:
 
 ```json
 {
@@ -122,6 +206,7 @@ El controller declara variables de tipo `Arma` (la clase base abstracta) pero co
   "peso": 1.5,
   "precision": 0.75,
   "balasCargador": 12,
+  "balasEnCargador": 12,
   "cargadores": 3,
   "retroceso": 0.3,
   "tiempoRecarga": 0.5,
@@ -130,37 +215,40 @@ El controller declara variables de tipo `Arma` (la clase base abstracta) pero co
 }
 ```
 
-## Conceptos Implementados
+## Conceptos implementados
 
-- **Abstracción**: `Arma` y `Granada` son clases abstractas que definen contratos.
-- **Herencia**: Las subclases heredan atributos y métodos de sus padres.
-- **Polimorfismo**: El método `getComportamiento()` se implementa de forma específica en cada clase hija.
-- **Encapsulamiento**: Los atributos son `protected` para que solo las subclases puedan acceder.
+- **Abstracción**: `Arma` y `Granada` son clases abstractas. `Arma` define el contrato `getComportamiento()`.
+- **Herencia**: dos ramas independientes (`ArmaDeFuego`, `Granada`) y subclases concretas.
+- **Sobreescritura**: `getComportamiento()` se implementa en cada rama y en las granadas específicas.
+- **Sobrecarga**: constructores simples y completos; `disparar()` y `dispararConTodas()` con y sin distancia.
+- **Encapsulamiento**: atributos `protected` en las clases base y `private` en el estado mutable; sin setters públicos.
+- **Validación**: los constructores rechazan estados ilegales.
 
 ## Ejecución
 
 1. Clonar el repositorio:
    ```bash
    git clone https://github.com/LTP22/ltauber-tp-lp3-2026.git
-   cd ltauber-tp-lp3-2026/LT-taller-git-2026
+   cd ltauber-tp-lp3-2026
    ```
 
-2. Compilar y ejecutar:
+2. Ejecutar las pruebas y arrancar el servicio:
    ```bash
+   ./mvnw test
    ./mvnw spring-boot:run
    ```
 
-3. Acceder a los endpoints:
+3. Probar los endpoints (en otra terminal; en PowerShell usar `curl.exe`, porque `curl` es un alias de `Invoke-WebRequest`):
    ```bash
-   curl http://localhost:8080/
-   curl http://localhost:8080/arma/pistola
-   curl http://localhost:8080/arma/granada-flash
+   curl.exe http://localhost:8080/
+   curl.exe http://localhost:8080/arma/pistola
+   curl.exe -X POST "http://localhost:8080/jugador?nombre=Luis"
    ```
 
 ## Tecnologías
 
 - **Java 21**
-- **Spring Boot 4.1.1**
+- **Spring Boot 4.1.1** (Spring Web)
 - **Maven**
 
 ## Colaboración
