@@ -3,7 +3,7 @@
 **Alumno:** Luis Tauber (LTP22)
 **Asignatura:** Lenguaje de Programación 3 (CYT646), ejercicio POO-06
 **Repositorio:** https://github.com/LTP22/ltauber-tp-lp3-2026
-**Commit de la solución:** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/193defe61e8b58b1c35ba76d23bfd778c1ca3156  
+**Commit de la solución:** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/0e476bcff2e6a45e3d798413362c29c4326f3ab5  
 **Commit de las especificaciones:** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/ef134bb148861e1124902de772b6fa7b5bfe09e2
 
 ---
@@ -149,9 +149,9 @@ curl.exe -X POST "http://localhost:8080/jugador/1/lanzar-granadas"   # granadasL
 
 ## 5. Commit de la solución
 
-El enlace exacto al commit que contiene la solución (código, pruebas, README y bitácora):
+El enlace exacto al commit que contiene la solución (código y pruebas):
 
-**https://github.com/LTP22/ltauber-tp-lp3-2026/commit/193defe61e8b58b1c35ba76d23bfd778c1ca3156**
+**https://github.com/LTP22/ltauber-tp-lp3-2026/commit/0e476bcff2e6a45e3d798413362c29c4326f3ab5**
 
 **Commit de las especificaciones** (el que agrega este documento): https://github.com/LTP22/ltauber-tp-lp3-2026/commit/ef134bb148861e1124902de772b6fa7b5bfe09e2
 
