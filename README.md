@@ -2,6 +2,12 @@
 
 API REST de modelado de armas de Counter-Strike 2, implementada con Spring Boot. Demuestra herencia, sobreescritura, sobrecarga y ocultamiento de la información.
 
+## Entrega
+
+- **Commit de la solución:** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/ef134bb148861e1124902de772b6fa7b5bfe09e2
+- **Bitácora de IA:** [BITACORA.md](BITACORA.md)
+- **Especificaciones:** [ESPECIFICACIONES.md](ESPECIFICACIONES.md)
+
 ## Objetivo
 
 Publicar un servicio HTTP que versiona el modelado de clases de CS2 y separa las reglas del dominio (`domain`) de la capa HTTP (`rest.controller`).
