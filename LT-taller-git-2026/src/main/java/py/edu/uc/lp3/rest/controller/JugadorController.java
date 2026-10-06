@@ -63,17 +63,23 @@ public class JugadorController {
     }
 
     @PostMapping("/{id}/disparar")
-    public ResponseEntity<Map<String, Object>> disparar(@PathVariable String id) {
+    public ResponseEntity<Map<String, Object>> disparar(
+            @PathVariable String id,
+            @RequestParam(required = false) Float distancia
+    ) {
         Jugador jugador = jugadores.get(id);
         if (jugador == null) {
             return noEncontrado();
         }
 
-        int armasUsadas = jugador.dispararConTodas();
+        int armasUsadas = distancia == null
+                ? jugador.dispararConTodas()
+                : jugador.dispararConTodas(distancia);
 
         Map<String, Object> respuesta = new HashMap<>();
         respuesta.put("jugador", jugador.getNombre());
         respuesta.put("accion", "disparo");
+        respuesta.put("distancia", distancia == null ? 0f : distancia);
         respuesta.put("armasUsadas", armasUsadas);
         return ResponseEntity.ok(respuesta);
     }
@@ -85,11 +91,12 @@ public class JugadorController {
             return noEncontrado();
         }
 
-        jugador.recargarTodas();
+        int armasRecargadas = jugador.recargarTodas();
 
         Map<String, Object> respuesta = new HashMap<>();
         respuesta.put("jugador", jugador.getNombre());
         respuesta.put("accion", "recarga");
+        respuesta.put("armasRecargadas", armasRecargadas);
         return ResponseEntity.ok(respuesta);
     }
 

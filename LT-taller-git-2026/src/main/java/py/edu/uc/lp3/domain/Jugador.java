@@ -37,7 +37,7 @@ public class Jugador {
     public int dispararConTodas() {
         int contador = 0;
         for (Arma arma : inventario) {
-            if (arma instanceof ArmaDeFuego armaDeFuego) {
+            if (arma instanceof ArmaDeFuego armaDeFuego && armaDeFuego.tieneBalas()) {
                 armaDeFuego.disparar();
                 contador++;
             }
@@ -45,19 +45,31 @@ public class Jugador {
         return contador;
     }
 
-    public void recargarTodas() {
+    public int dispararConTodas(float distancia) {
+        int contador = 0;
         for (Arma arma : inventario) {
-            if (arma instanceof ArmaDeFuego armaDeFuego) {
-                armaDeFuego.recargar();
+            if (arma instanceof ArmaDeFuego armaDeFuego && armaDeFuego.tieneBalas()) {
+                armaDeFuego.disparar(distancia);
+                contador++;
             }
         }
+        return contador;
+    }
+
+    public int recargarTodas() {
+        int contador = 0;
+        for (Arma arma : inventario) {
+            if (arma instanceof ArmaDeFuego armaDeFuego && armaDeFuego.recargar()) {
+                contador++;
+            }
+        }
+        return contador;
     }
 
     public int lanzarGranadas() {
         int contador = 0;
         for (Arma arma : inventario) {
-            if (arma instanceof Granada granada) {
-                granada.lanzar();
+            if (arma instanceof Granada granada && granada.lanzar()) {
                 contador++;
             }
         }

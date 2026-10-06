@@ -5,6 +5,7 @@ public abstract class Granada extends Arma {
     protected float distanciaLanzamiento;
     protected float aturdimiento;
     protected float visibilidad;
+    private boolean lanzada;
 
     protected Granada(int danio, float precio, String equipo, float peso,
                       float radioExplosion, float distanciaLanzamiento,
@@ -27,12 +28,20 @@ public abstract class Granada extends Arma {
         return "Se lanza a " + distanciaLanzamiento + "m y explota con radio " + radioExplosion + "m.";
     }
 
-    public void lanzar() {
-        System.out.println("Lanzando granada.");
+    public boolean lanzar() {
+        if (lanzada) {
+            return false;
+        }
+        lanzada = true;
+        return true;
     }
 
     public void explotar() {
         System.out.println("La granada exploto.");
+    }
+
+    public boolean isLanzada() {
+        return lanzada;
     }
 
     public float getRadioExplosion() {
