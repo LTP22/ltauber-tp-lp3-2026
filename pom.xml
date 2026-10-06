@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>py.edu.uc.lp3</groupId>
-	<artifactId>LT-taller-git-2026</artifactId>
+	<artifactId>lt-taller-git-2026</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>LT-taller-git-2026</name>
 	<description>API REST con modelado de armas de Counter-Strike 2</description>
