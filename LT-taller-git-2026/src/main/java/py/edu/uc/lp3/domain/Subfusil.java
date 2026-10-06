@@ -1,10 +1,9 @@
 package py.edu.uc.lp3.domain;
 
 public class Subfusil extends ArmaDeFuego {
-    private String nombre;
-    private int nivel;
 
-    public Subfusil() {
+    public Subfusil(String equipo) {
+        this(20, 1200f, equipo, 2.2f, 0.70f, 25, 4, 0.5f, 1.5f, "smg_fire");
     }
 
     public Subfusil(int danio, float precio, String equipo, float peso,
@@ -13,29 +12,7 @@ public class Subfusil extends ArmaDeFuego {
         super(danio, precio, equipo, peso, precision, balasCargador, cargadores, retroceso, tiempoRecarga, animacion);
     }
 
-    public Subfusil(int precio, int nivel, String nombre) {
-        this.precio = precio;
-        this.nivel = nivel;
-        this.nombre = nombre;
-    }
-
     public void disparoAutomatico() {
         System.out.println("Disparo automatico con subfusil.");
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getNivel() {
-        return nivel;
-    }
-
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
     }
 }

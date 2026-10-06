@@ -1,6 +1,5 @@
 package py.edu.uc.lp3.domain;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +8,9 @@ public class Jugador {
     protected List<Arma> inventario;
 
     public Jugador(String nombre) {
+        if (nombre == null || nombre.isBlank()) {
+            throw new IllegalArgumentException("El nombre del jugador es obligatorio");
+        }
         this.nombre = nombre;
         this.inventario = new ArrayList<>();
     }
@@ -18,46 +20,44 @@ public class Jugador {
     }
 
     public List<Arma> getInventario() {
-        return inventario;
+        return List.copyOf(inventario);
     }
 
     public void agregarArma(Arma arma) {
-        if (arma != null) {
-            this.inventario.add(arma);
+        if (arma == null) {
+            throw new IllegalArgumentException("El arma no puede ser nula");
         }
+        this.inventario.add(arma);
     }
 
     public int contarArmas() {
         return this.inventario.size();
     }
 
-    // Polimorfismo: Itera sobre las armas de fuego y dispara
     public int dispararConTodas() {
         int contador = 0;
         for (Arma arma : inventario) {
-            if (arma instanceof ArmaDeFuego) {
-                ((ArmaDeFuego) arma).disparar();
+            if (arma instanceof ArmaDeFuego armaDeFuego) {
+                armaDeFuego.disparar();
                 contador++;
             }
         }
         return contador;
     }
 
-    // Polimorfismo: Itera sobre las armas de fuego y recarga
     public void recargarTodas() {
         for (Arma arma : inventario) {
-            if (arma instanceof ArmaDeFuego) {
-                ((ArmaDeFuego) arma).recargar();
+            if (arma instanceof ArmaDeFuego armaDeFuego) {
+                armaDeFuego.recargar();
             }
         }
     }
 
-    // Polimorfismo: Itera sobre las granadas y las lanza
     public int lanzarGranadas() {
         int contador = 0;
         for (Arma arma : inventario) {
-            if (arma instanceof Granada) {
-                ((Granada) arma).lanzar();
+            if (arma instanceof Granada granada) {
+                granada.lanzar();
                 contador++;
             }
         }

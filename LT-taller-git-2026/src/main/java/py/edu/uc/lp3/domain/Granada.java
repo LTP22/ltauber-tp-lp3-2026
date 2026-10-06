@@ -1,19 +1,21 @@
 package py.edu.uc.lp3.domain;
 
-
 public abstract class Granada extends Arma {
     protected float radioExplosion;
     protected float distanciaLanzamiento;
     protected float aturdimiento;
     protected float visibilidad;
 
-    public Granada() {
-    }
-
-    public Granada(int danio, float precio, String equipo, float peso,
-                   float radioExplosion, float distanciaLanzamiento,
-                   float aturdimiento, float visibilidad) {
+    protected Granada(int danio, float precio, String equipo, float peso,
+                      float radioExplosion, float distanciaLanzamiento,
+                      float aturdimiento, float visibilidad) {
         super(danio, precio, equipo, peso);
+        if (radioExplosion < 0 || distanciaLanzamiento < 0) {
+            throw new IllegalArgumentException("Radio y distancia no pueden ser negativos");
+        }
+        if (aturdimiento < 0 || visibilidad < 0) {
+            throw new IllegalArgumentException("Aturdimiento y visibilidad no pueden ser negativos");
+        }
         this.radioExplosion = radioExplosion;
         this.distanciaLanzamiento = distanciaLanzamiento;
         this.aturdimiento = aturdimiento;
@@ -37,31 +39,15 @@ public abstract class Granada extends Arma {
         return radioExplosion;
     }
 
-    public void setRadioExplosion(float radioExplosion) {
-        this.radioExplosion = radioExplosion;
-    }
-
     public float getDistanciaLanzamiento() {
         return distanciaLanzamiento;
-    }
-
-    public void setDistanciaLanzamiento(float distanciaLanzamiento) {
-        this.distanciaLanzamiento = distanciaLanzamiento;
     }
 
     public float getAturdimiento() {
         return aturdimiento;
     }
 
-    public void setAturdimiento(float aturdimiento) {
-        this.aturdimiento = aturdimiento;
-    }
-
     public float getVisibilidad() {
         return visibilidad;
-    }
-
-    public void setVisibilidad(float visibilidad) {
-        this.visibilidad = visibilidad;
     }
 }

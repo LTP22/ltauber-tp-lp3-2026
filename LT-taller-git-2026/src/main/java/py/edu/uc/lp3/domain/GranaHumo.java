@@ -3,7 +3,8 @@ package py.edu.uc.lp3.domain;
 public class GranaHumo extends Granada {
     protected float duracionHumo;
 
-    public GranaHumo() {
+    public GranaHumo(String equipo) {
+        this(0, 300f, equipo, 0.4f, 20f, 18f, 4.5f, 0f);
     }
 
     public GranaHumo(int danio, float precio, String equipo, float peso,
@@ -20,9 +21,5 @@ public class GranaHumo extends Granada {
 
     public float getDuracionHumo() {
         return duracionHumo;
-    }
-
-    public void setDuracionHumo(float duracionHumo) {
-        this.duracionHumo = duracionHumo;
     }
 }

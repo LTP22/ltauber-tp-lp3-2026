@@ -8,13 +8,25 @@ public class ArmaDeFuego extends Arma {
     protected float tiempoRecarga;
     protected String animacion;
 
-    public ArmaDeFuego() {
-    }
-
-    public ArmaDeFuego(int danio, float precio, String equipo, float peso,
-                       float precision, int balasCargador, int cargadores,
-                       float retroceso, float tiempoRecarga, String animacion) {
+    protected ArmaDeFuego(int danio, float precio, String equipo, float peso,
+                          float precision, int balasCargador, int cargadores,
+                          float retroceso, float tiempoRecarga, String animacion) {
         super(danio, precio, equipo, peso);
+        if (precision < 0 || precision > 1) {
+            throw new IllegalArgumentException("La precision debe estar entre 0 y 1");
+        }
+        if (balasCargador <= 0) {
+            throw new IllegalArgumentException("El cargador debe tener al menos una bala");
+        }
+        if (cargadores < 0) {
+            throw new IllegalArgumentException("La cantidad de cargadores no puede ser negativa");
+        }
+        if (retroceso < 0 || tiempoRecarga < 0) {
+            throw new IllegalArgumentException("Retroceso y tiempo de recarga no pueden ser negativos");
+        }
+        if (animacion == null || animacion.isBlank()) {
+            throw new IllegalArgumentException("La animacion es obligatoria");
+        }
         this.precision = precision;
         this.balasCargador = balasCargador;
         this.cargadores = cargadores;
@@ -40,47 +52,23 @@ public class ArmaDeFuego extends Arma {
         return precision;
     }
 
-    public void setPrecision(float precision) {
-        this.precision = precision;
-    }
-
     public int getBalasCargador() {
         return balasCargador;
-    }
-
-    public void setBalasCargador(int balasCargador) {
-        this.balasCargador = balasCargador;
     }
 
     public int getCargadores() {
         return cargadores;
     }
 
-    public void setCargadores(int cargadores) {
-        this.cargadores = cargadores;
-    }
-
     public float getRetroceso() {
         return retroceso;
-    }
-
-    public void setRetroceso(float retroceso) {
-        this.retroceso = retroceso;
     }
 
     public float getTiempoRecarga() {
         return tiempoRecarga;
     }
 
-    public void setTiempoRecarga(float tiempoRecarga) {
-        this.tiempoRecarga = tiempoRecarga;
-    }
-
     public String getAnimacion() {
         return animacion;
-    }
-
-    public void setAnimacion(String animacion) {
-        this.animacion = animacion;
     }
 }

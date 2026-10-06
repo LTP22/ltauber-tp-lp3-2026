@@ -3,7 +3,8 @@ package py.edu.uc.lp3.domain;
 public class GranaFlash extends Granada {
     protected float ceguera;
 
-    public GranaFlash() {
+    public GranaFlash(String equipo) {
+        this(0, 200f, equipo, 0.3f, 25f, 15f, 3.0f, 100f);
     }
 
     public GranaFlash(int danio, float precio, String equipo, float peso,
@@ -20,9 +21,5 @@ public class GranaFlash extends Granada {
 
     public float getCeguera() {
         return ceguera;
-    }
-
-    public void setCeguera(float ceguera) {
-        this.ceguera = ceguera;
     }
 }

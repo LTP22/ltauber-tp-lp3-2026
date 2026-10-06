@@ -6,10 +6,19 @@ public abstract class Arma {
     protected String equipo;
     protected float peso;
 
-    public Arma() {
-    }
-
-    public Arma(int danio, float precio, String equipo, float peso) {
+    protected Arma(int danio, float precio, String equipo, float peso) {
+        if (danio < 0) {
+            throw new IllegalArgumentException("El daño no puede ser negativo");
+        }
+        if (precio < 0) {
+            throw new IllegalArgumentException("El precio no puede ser negativo");
+        }
+        if (peso <= 0) {
+            throw new IllegalArgumentException("El peso debe ser mayor que cero");
+        }
+        if (!"T".equals(equipo) && !"CT".equals(equipo)) {
+            throw new IllegalArgumentException("El equipo debe ser T o CT");
+        }
         this.danio = danio;
         this.precio = precio;
         this.equipo = equipo;
@@ -30,31 +39,15 @@ public abstract class Arma {
         return danio;
     }
 
-    public void setDanio(int danio) {
-        this.danio = danio;
-    }
-
     public float getPrecio() {
         return precio;
-    }
-
-    public void setPrecio(float precio) {
-        this.precio = precio;
     }
 
     public String getEquipo() {
         return equipo;
     }
 
-    public void setEquipo(String equipo) {
-        this.equipo = equipo;
-    }
-
     public float getPeso() {
         return peso;
-    }
-
-    public void setPeso(float peso) {
-        this.peso = peso;
     }
 }

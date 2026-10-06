@@ -1,9 +1,9 @@
 package py.edu.uc.lp3.domain;
 
-
 public class GranaDetonadora extends Granada {
 
-    public GranaDetonadora() {
+    public GranaDetonadora(String equipo) {
+        this(60, 400f, equipo, 0.45f, 18f, 20f, 2.0f, 100f);
     }
 
     public GranaDetonadora(int danio, float precio, String equipo, float peso,

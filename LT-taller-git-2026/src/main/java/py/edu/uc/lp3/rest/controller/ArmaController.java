@@ -1,11 +1,15 @@
 package py.edu.uc.lp3.rest.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-// Corrección de casing: LT en mayúsculas
+import java.util.Map;
+
 import py.edu.uc.lp3.domain.Arma;
 import py.edu.uc.lp3.domain.Pistola;
 import py.edu.uc.lp3.domain.Rifle;
@@ -115,5 +119,10 @@ public class ArmaController {
             @RequestParam(defaultValue = "2.0") float aturdimiento,
             @RequestParam(defaultValue = "100") float visibilidad) {
         return new GranaDetonadora(danio, precio, equipo, peso, radioExplosion, distanciaLanzamiento, aturdimiento, visibilidad);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, String>> valorInvalido(IllegalArgumentException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", e.getMessage()));
     }
 }
