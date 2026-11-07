@@ -23,10 +23,10 @@ public abstract class Arma {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    protected int danio;
-    protected float precio;
-    protected String equipo;
-    protected float peso;
+    private int danio;
+    private float precio;
+    private String equipo;
+    private float peso;
 
     /**
      * Constructor vacio exigido por JPA para reconstruir el objeto al leerlo de la base.

@@ -8,12 +8,12 @@ import jakarta.persistence.Entity;
 public class ArmaDeFuego extends Arma implements Accionable {
     private static final float DISTANCIA_SIN_DANIO = 100f;
 
-    protected float precision;
-    protected int balasCargador;
-    protected int cargadores;
-    protected float retroceso;
-    protected float tiempoRecarga;
-    protected String animacion;
+    private float precision;
+    private int balasCargador;
+    private int cargadores;
+    private float retroceso;
+    private float tiempoRecarga;
+    private String animacion;
     private int balasEnCargador;
 
     /** Constructor vacio para JPA, ver el de Arma. */
@@ -72,7 +72,7 @@ public class ArmaDeFuego extends Arma implements Accionable {
         }
         balasEnCargador--;
         float factorDistancia = Math.max(0f, 1f - distancia / DISTANCIA_SIN_DANIO);
-        return Math.round(danio * precision * factorDistancia);
+        return Math.round(getDanio() * precision * factorDistancia);
     }
 
     public boolean recargar() {

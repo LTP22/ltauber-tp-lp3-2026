@@ -6,10 +6,10 @@ import jakarta.persistence.Entity;
 @Entity
 @DiscriminatorValue("granada")
 public class Granada extends Arma implements Accionable {
-    protected float radioExplosion;
-    protected float distanciaLanzamiento;
-    protected float aturdimiento;
-    protected float visibilidad;
+    private float radioExplosion;
+    private float distanciaLanzamiento;
+    private float aturdimiento;
+    private float visibilidad;
     private boolean lanzada;
 
     /** Constructor vacio para JPA, ver el de Arma. */

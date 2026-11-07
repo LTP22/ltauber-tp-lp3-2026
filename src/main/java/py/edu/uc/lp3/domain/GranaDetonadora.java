@@ -14,6 +14,6 @@ public class GranaDetonadora extends Granada {
 
     @Override
     public String getComportamiento() {
-        return "Explota con dano " + danio + " en radio " + radioExplosion + "m, aturdiendo " + aturdimiento + "s y causando visibilidad " + visibilidad + ".";
+        return "Explota con dano " + getDanio() + " en radio " + getRadioExplosion() + "m, aturdiendo " + getAturdimiento() + "s y causando visibilidad " + getVisibilidad() + ".";
     }
 }

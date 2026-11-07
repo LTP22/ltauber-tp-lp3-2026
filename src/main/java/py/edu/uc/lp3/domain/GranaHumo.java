@@ -16,7 +16,7 @@ public class GranaHumo extends Granada {
 
     @Override
     public String getComportamiento() {
-        return "Crea cortina de humo durante " + duracionHumo + "s en radio " + radioExplosion + "m, ocultando visibilidad a " + distanciaLanzamiento + "m.";
+        return "Crea cortina de humo durante " + duracionHumo + "s en radio " + getRadioExplosion() + "m, ocultando visibilidad a " + getDistanciaLanzamiento() + "m.";
     }
 
     public float getDuracionHumo() {

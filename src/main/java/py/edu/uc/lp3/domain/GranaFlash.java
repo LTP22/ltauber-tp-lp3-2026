@@ -16,7 +16,7 @@ public class GranaFlash extends Granada {
 
     @Override
     public String getComportamiento() {
-        return "Destella con intensidad " + ceguera + " a " + distanciaLanzamiento + "m, cegando a enemigos en radio " + radioExplosion + "m.";
+        return "Destella con intensidad " + ceguera + " a " + getDistanciaLanzamiento() + "m, cegando a enemigos en radio " + getRadioExplosion() + "m.";
     }
 
     public float getCeguera() {
