@@ -1,13 +1,27 @@
 package py.edu.uc.lp3.domain;
 
-public abstract class Granada extends Arma {
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("granada")
+public class Granada extends Arma implements Accionable {
     protected float radioExplosion;
     protected float distanciaLanzamiento;
     protected float aturdimiento;
     protected float visibilidad;
     private boolean lanzada;
 
-    protected Granada(int danio, float precio, String equipo, float peso,
+    /** Constructor vacio para JPA, ver el de Arma. */
+    protected Granada() {
+        super();
+    }
+
+    /**
+     * Antes era protected (solo la usaban las hijas concretas como GranaFlash). Ahora es
+     * public porque el CRUD persistido necesita crear granadas genericas.
+     */
+    public Granada(int danio, float precio, String equipo, float peso,
                       float radioExplosion, float distanciaLanzamiento,
                       float aturdimiento, float visibilidad) {
         super(danio, precio, equipo, peso);
@@ -58,5 +72,10 @@ public abstract class Granada extends Arma {
 
     public float getVisibilidad() {
         return visibilidad;
+    }
+
+    @Override
+    public String describirEstado() {
+        return lanzada ? "Ya fue lanzada." : "Lista para lanzar a " + distanciaLanzamiento + "m.";
     }
 }

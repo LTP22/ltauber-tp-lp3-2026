@@ -1,6 +1,11 @@
 package py.edu.uc.lp3.domain;
 
-public class ArmaDeFuego extends Arma {
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("armaDeFuego")
+public class ArmaDeFuego extends Arma implements Accionable {
     private static final float DISTANCIA_SIN_DANIO = 100f;
 
     protected float precision;
@@ -11,7 +16,17 @@ public class ArmaDeFuego extends Arma {
     protected String animacion;
     private int balasEnCargador;
 
-    protected ArmaDeFuego(int danio, float precio, String equipo, float peso,
+    /** Constructor vacio para JPA, ver el de Arma. */
+    protected ArmaDeFuego() {
+        super();
+    }
+
+    /**
+     * Antes era protected (solo la usaban las hijas concretas como Pistola). Ahora es
+     * public porque el CRUD persistido necesita crear armas de fuego genericas, no
+     * atadas a un modelo concreto como Pistola o Rifle.
+     */
+    public ArmaDeFuego(int danio, float precio, String equipo, float peso,
                           float precision, int balasCargador, int cargadores,
                           float retroceso, float tiempoRecarga, String animacion) {
         super(danio, precio, equipo, peso);
@@ -99,5 +114,14 @@ public class ArmaDeFuego extends Arma {
 
     public String getAnimacion() {
         return animacion;
+    }
+
+    @Override
+    public String describirEstado() {
+        if (tieneBalas()) {
+            return "Tiene " + balasEnCargador + "/" + balasCargador + " balas en el cargador y "
+                    + cargadores + " cargadores de repuesto.";
+        }
+        return "Sin balas en el cargador; quedan " + cargadores + " cargadores para recargar.";
     }
 }
