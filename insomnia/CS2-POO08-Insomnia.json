@@ -1,0 +1,207 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-11-07T21:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v8.6.0",
+  "resources": [
+    {
+      "_id": "wrk_cs2poo08",
+      "_type": "workspace",
+      "parentId": null,
+      "name": "CS2 - POO-08 (CRUD, H2, simulacion, excepciones)",
+      "description": "Coleccion versionada del taller LP3. Importar y correr en el orden 01..11: crear primero, copiar los ids a las variables del entorno, simular, y recien despues provocar los errores.",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_base",
+      "_type": "environment",
+      "parentId": "wrk_cs2poo08",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8080",
+        "arma_id": "1",
+        "granada_id": "2",
+        "arma_a_borrar_id": "3",
+        "id_inexistente": "9999"
+      },
+      "dataPropertyOrder": { "&": ["base_url", "arma_id", "granada_id", "arma_a_borrar_id", "id_inexistente"] },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1
+    },
+    {
+      "_id": "req_01_crear_arma",
+      "_type": "request",
+      "parentId": "wrk_cs2poo08",
+      "name": "01 - CRUD Create: crear ArmaDeFuego",
+      "description": "Crea la arma de fuego que despues se usa en la simulacion. Copiar el id de la respuesta a la variable arma_id.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/armas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"tipo\": \"armaDeFuego\",\n  \"danio\": 25,\n  \"precio\": 500,\n  \"equipo\": \"T\",\n  \"peso\": 1.5,\n  \"precision\": 0.75,\n  \"balasCargador\": 12,\n  \"cargadores\": 3,\n  \"retroceso\": 0.3,\n  \"tiempoRecarga\": 0.5,\n  \"animacion\": \"pistol_fire\"\n}"
+      },
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "metaSortKey": 1,
+      "isPrivate": false
+    },
+    {
+      "_id": "req_02_crear_granada",
+      "_type": "request",
+      "parentId": "wrk_cs2poo08",
+      "name": "02 - CRUD Create: crear Granada",
+      "description": "Crea la granada que despues se usa en la simulacion. Copiar el id de la respuesta a la variable granada_id.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/armas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"tipo\": \"granada\",\n  \"danio\": 0,\n  \"precio\": 200,\n  \"equipo\": \"T\",\n  \"peso\": 0.3,\n  \"radioExplosion\": 25,\n  \"distanciaLanzamiento\": 15,\n  \"aturdimiento\": 3,\n  \"visibilidad\": 100\n}"
+      },
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "metaSortKey": 2,
+      "isPrivate": false
+    },
+    {
+      "_id": "req_03_crear_arma_borrar",
+      "_type": "request",
+      "parentId": "wrk_cs2poo08",
+      "name": "03 - CRUD Create: crear arma para borrar despues",
+      "description": "Un tercer recurso solo para probar DELETE sin tocar el arma/granada que usa la simulacion. Copiar el id a arma_a_borrar_id.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/armas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"tipo\": \"armaDeFuego\",\n  \"danio\": 77,\n  \"precio\": 2100,\n  \"equipo\": \"CT\",\n  \"peso\": 3.6,\n  \"precision\": 0.85,\n  \"balasCargador\": 30,\n  \"cargadores\": 5,\n  \"retroceso\": 0.75,\n  \"tiempoRecarga\": 2.0,\n  \"animacion\": \"rifle_fire\"\n}"
+      },
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "metaSortKey": 3,
+      "isPrivate": false
+    },
+    {
+      "_id": "req_04_listar",
+      "_type": "request",
+      "parentId": "wrk_cs2poo08",
+      "name": "04 - CRUD Read (coleccion): listar armas",
+      "description": "Las tres armas creadas deben aparecer: esto confirma que se estan leyendo de la base, no de una lista armada en el metodo.",
+      "method": "GET",
+      "url": "{{ _.base_url }}/armas",
+      "headers": [],
+      "metaSortKey": 4,
+      "isPrivate": false
+    },
+    {
+      "_id": "req_05_leer_uno",
+      "_type": "request",
+      "parentId": "wrk_cs2poo08",
+      "name": "05 - CRUD Read (item): leer un arma por id",
+      "method": "GET",
+      "url": "{{ _.base_url }}/armas/{{ _.arma_id }}",
+      "headers": [],
+      "metaSortKey": 5,
+      "isPrivate": false
+    },
+    {
+      "_id": "req_06_actualizar",
+      "_type": "request",
+      "parentId": "wrk_cs2poo08",
+      "name": "06 - CRUD Update: PUT (reasigna equipo y precio)",
+      "description": "El PUT no reemplaza el arma entera (eso rompería invariantes como la precision o el cargador): solo reasigna equipo y precio, los dos campos que tiene sentido cambiar sin reconstruir el arma.",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/armas/{{ _.arma_id }}",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"equipo\": \"CT\",\n  \"precio\": 450\n}"
+      },
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "metaSortKey": 6,
+      "isPrivate": false
+    },
+    {
+      "_id": "req_07_post_ilegal",
+      "_type": "request",
+      "parentId": "wrk_cs2poo08",
+      "name": "07 - POST ilegal: viola un invariante de construccion -> 400",
+      "description": "danio negativo. El constructor de ArmaDeFuego lanza IllegalArgumentException; el handler global responde 400 y la coleccion persistida no crece con este registro.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/armas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"tipo\": \"armaDeFuego\",\n  \"danio\": -5,\n  \"precio\": 500,\n  \"equipo\": \"T\",\n  \"peso\": 1.5,\n  \"precision\": 0.75,\n  \"balasCargador\": 12,\n  \"cargadores\": 3,\n  \"retroceso\": 0.3,\n  \"tiempoRecarga\": 0.5,\n  \"animacion\": \"pistol_fire\"\n}"
+      },
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "metaSortKey": 7,
+      "isPrivate": false
+    },
+    {
+      "_id": "req_08_estado_interfaz",
+      "_type": "request",
+      "parentId": "wrk_cs2poo08",
+      "name": "08 - Endpoint de la interfaz Accionable: estado del arma",
+      "description": "El controller le pide el estado al objeto a traves del tipo Accionable (POO-07), sin preguntar si es ArmaDeFuego o Granada.",
+      "method": "GET",
+      "url": "{{ _.base_url }}/armas/{{ _.arma_id }}/estado",
+      "headers": [],
+      "metaSortKey": 8,
+      "isPrivate": false
+    },
+    {
+      "_id": "req_09_simulacion_feliz",
+      "_type": "request",
+      "parentId": "wrk_cs2poo08",
+      "name": "09 - Simulacion de combate (caso feliz): cumple las dos reglas",
+      "description": "Regla 1 (dano/municion): dispara y consume una bala. Regla 2: lanza la granada, queda marcada para siempre. El resultado se persiste: un GET posterior a /armas/{id} muestra el estado nuevo.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/simulaciones/combate?armaDeFuegoId={{ _.arma_id }}&granadaId={{ _.granada_id }}",
+      "headers": [],
+      "metaSortKey": 9,
+      "isPrivate": false
+    },
+    {
+      "_id": "req_10_id_inexistente",
+      "_type": "request",
+      "parentId": "wrk_cs2poo08",
+      "name": "10 - Excepcion hija 1: RecursoNoEncontradoException -> 404",
+      "description": "Id que no existe en la base. El handler de esta excepcion responde 404 con el mensaje del dominio.",
+      "method": "GET",
+      "url": "{{ _.base_url }}/armas/{{ _.id_inexistente }}",
+      "headers": [],
+      "metaSortKey": 10,
+      "isPrivate": false
+    },
+    {
+      "_id": "req_11_operacion_invalida",
+      "_type": "request",
+      "parentId": "wrk_cs2poo08",
+      "name": "11 - Excepcion hija 2: OperacionInvalidaException -> 409",
+      "description": "Repetir la simulacion (request 09) con la MISMA granada: ya fue lanzada, asi que esta vez el handler de esta excepcion responde 409, distinto codigo y distinto JSON que el 404 de la excepcion hermana.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/simulaciones/combate?armaDeFuegoId={{ _.arma_id }}&granadaId={{ _.granada_id }}",
+      "headers": [],
+      "metaSortKey": 11,
+      "isPrivate": false
+    },
+    {
+      "_id": "req_12_delete",
+      "_type": "request",
+      "parentId": "wrk_cs2poo08",
+      "name": "12 - CRUD Delete: borrar arma, despues GET confirma 404",
+      "description": "Borra el recurso creado en el request 03 (no toca el arma/granada de la simulacion). Correr el GET de abajo despues: debe dar 404.",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/armas/{{ _.arma_a_borrar_id }}",
+      "headers": [],
+      "metaSortKey": 12,
+      "isPrivate": false
+    },
+    {
+      "_id": "req_13_delete_confirmar",
+      "_type": "request",
+      "parentId": "wrk_cs2poo08",
+      "name": "13 - Confirmar DELETE: GET al id borrado -> 404",
+      "method": "GET",
+      "url": "{{ _.base_url }}/armas/{{ _.arma_a_borrar_id }}",
+      "headers": [],
+      "metaSortKey": 13,
+      "isPrivate": false
+    }
+  ]
+}
