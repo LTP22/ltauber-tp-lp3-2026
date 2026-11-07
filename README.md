@@ -484,7 +484,7 @@ La colaboración demuestra los principios de trabajo en equipo usando Git:
 - Clonación de repositorios
 - Creación de ramas de contribución
 - Pull Requests para revisión de código
-- Polimorfismo sin condicionales (`if`) en ambos proyectos
+- Polimorfismo mediante `getComportamiento()`: `ArmaController` y `ArmaCrudController` arman la respuesta sin preguntar el tipo concreto del arma. `Jugador.dispararConTodas()` y `recargarTodas()` sí usan `instanceof ArmaDeFuego`/`Granada` para filtrar qué armas del inventario responden a cada acción (no todo `if` desaparece: hace falta donde una lista mixta debe separar por capacidad, no por comportamiento). El endpoint `/armas/{id}/estado` de POO-08, en cambio, sí evita ese `instanceof`: usa la interfaz `Accionable`.
 
 ---
 
