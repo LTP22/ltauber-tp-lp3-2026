@@ -4,7 +4,7 @@
 **Asignatura:** Lenguaje de Programación 3 (CYT646), ejercicio POO-08
 **Dominio:** Counter-Strike 2
 **Repositorio:** https://github.com/LTP22/ltauber-tp-lp3-2026
-**Commit de la solución:** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/58eae88
+**Commit de la solución:** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/02b097f
 
 ---
 
@@ -137,7 +137,7 @@ Importar `insomnia/CS2-POO08-Insomnia.json` (`Create` → `Import From File`). T
 
 El enlace exacto al commit que contiene la solución (código e Insomnia; ver también "Commit de las especificaciones" en el README, que apunta al commit que agrega este documento):
 
-**https://github.com/LTP22/ltauber-tp-lp3-2026/commit/58eae88**
+**https://github.com/LTP22/ltauber-tp-lp3-2026/commit/02b097f**
 
 ---
 
