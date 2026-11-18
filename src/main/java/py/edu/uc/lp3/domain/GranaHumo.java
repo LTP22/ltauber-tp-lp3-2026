@@ -1,5 +1,7 @@
 package py.edu.uc.lp3.domain;
 
+import py.edu.uc.lp3.service.DominioValidador;
+
 public class GranaHumo extends Granada {
     protected float duracionHumo;
 
@@ -7,10 +9,13 @@ public class GranaHumo extends Granada {
         this(0, 300f, equipo, 0.4f, 20f, 18f, 4.5f, 0f);
     }
 
+    /** Valida después de super() (ver DominioValidador): no es lógica de la Entity, solo evita construir con datos ilegales. */
     public GranaHumo(int danio, float precio, String equipo, float peso,
                      float radioExplosion, float distanciaLanzamiento,
                      float duracionHumo, float visibilidad) {
         super(danio, precio, equipo, peso, radioExplosion, distanciaLanzamiento, duracionHumo, visibilidad);
+        DominioValidador.validarComunes(danio, precio, equipo, peso);
+        DominioValidador.validarGranada(radioExplosion, distanciaLanzamiento, duracionHumo, visibilidad);
         this.duracionHumo = duracionHumo;
     }
 

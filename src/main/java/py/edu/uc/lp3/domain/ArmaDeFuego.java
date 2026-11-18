@@ -24,27 +24,13 @@ public class ArmaDeFuego extends Arma implements Accionable {
     /**
      * Antes era protected (solo la usaban las hijas concretas como Pistola). Ahora es
      * public porque el CRUD persistido necesita crear armas de fuego genéricas, no
-     * atadas a un modelo concreto como Pistola o Rifle.
+     * atadas a un modelo concreto como Pistola o Rifle. Sin validar (observación cerrada
+     * de POO-08): ArmaServiceImpl valida con DominioValidador antes de construir.
      */
     public ArmaDeFuego(int danio, float precio, String equipo, float peso,
                           float precision, int balasCargador, int cargadores,
                           float retroceso, float tiempoRecarga, String animacion) {
         super(danio, precio, equipo, peso);
-        if (precision < 0 || precision > 1) {
-            throw new IllegalArgumentException("La precision debe estar entre 0 y 1");
-        }
-        if (balasCargador <= 0) {
-            throw new IllegalArgumentException("El cargador debe tener al menos una bala");
-        }
-        if (cargadores < 0) {
-            throw new IllegalArgumentException("La cantidad de cargadores no puede ser negativa");
-        }
-        if (retroceso < 0 || tiempoRecarga < 0) {
-            throw new IllegalArgumentException("Retroceso y tiempo de recarga no pueden ser negativos");
-        }
-        if (animacion == null || animacion.isBlank()) {
-            throw new IllegalArgumentException("La animacion es obligatoria");
-        }
         this.precision = precision;
         this.balasCargador = balasCargador;
         this.cargadores = cargadores;

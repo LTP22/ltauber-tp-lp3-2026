@@ -13,6 +13,7 @@ import py.edu.uc.lp3.domain.exception.OperacionInvalidaException;
 import py.edu.uc.lp3.domain.exception.RecursoNoEncontradoException;
 import py.edu.uc.lp3.repository.ArmaRepository;
 import py.edu.uc.lp3.service.ArmaService;
+import py.edu.uc.lp3.service.DominioValidador;
 import py.edu.uc.lp3.service.ResultadoCombate;
 
 /**
@@ -42,14 +43,29 @@ public class ArmaServiceImpl implements ArmaService {
 
     @Override
     public Arma crear(Arma arma) {
+        validar(arma);
         return armaRepository.save(arma);
     }
 
     @Override
     public Arma reasignar(Long id, String nuevoEquipo, float nuevoPrecio) {
+        DominioValidador.validarReasignacion(nuevoEquipo, nuevoPrecio);
         Arma arma = buscarPorId(id);
         arma.reasignar(nuevoEquipo, nuevoPrecio);
         return armaRepository.save(arma);
+    }
+
+    /** Arma/ArmaDeFuego/Granada ya no validan (observación cerrada de POO-08): el service valida antes de persistir. */
+    private void validar(Arma arma) {
+        DominioValidador.validarComunes(arma.getDanio(), arma.getPrecio(), arma.getEquipo(), arma.getPeso());
+        if (arma instanceof ArmaDeFuego armaDeFuego) {
+            DominioValidador.validarArmaDeFuego(armaDeFuego.getPrecision(), armaDeFuego.getBalasCargador(),
+                    armaDeFuego.getCargadores(), armaDeFuego.getRetroceso(), armaDeFuego.getTiempoRecarga(),
+                    armaDeFuego.getAnimacion());
+        } else if (arma instanceof Granada granada) {
+            DominioValidador.validarGranada(granada.getRadioExplosion(), granada.getDistanciaLanzamiento(),
+                    granada.getAturdimiento(), granada.getVisibilidad());
+        }
     }
 
     @Override

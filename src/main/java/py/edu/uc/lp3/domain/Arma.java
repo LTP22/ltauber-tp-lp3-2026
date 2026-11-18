@@ -37,19 +37,12 @@ public abstract class Arma {
     protected Arma() {
     }
 
+    /**
+     * Sin validar: la Entity solo guarda estado (observación cerrada de POO-08).
+     * Quien llama a este constructor -ArmaServiceImpl, o una hija de catálogo como
+     * Pistola- es responsable de validar antes, con DominioValidador.
+     */
     protected Arma(int danio, float precio, String equipo, float peso) {
-        if (danio < 0) {
-            throw new IllegalArgumentException("El daño no puede ser negativo");
-        }
-        if (precio < 0) {
-            throw new IllegalArgumentException("El precio no puede ser negativo");
-        }
-        if (peso <= 0) {
-            throw new IllegalArgumentException("El peso debe ser mayor que cero");
-        }
-        if (!"T".equals(equipo) && !"CT".equals(equipo)) {
-            throw new IllegalArgumentException("El equipo debe ser T o CT");
-        }
         this.danio = danio;
         this.precio = precio;
         this.equipo = equipo;
@@ -63,15 +56,10 @@ public abstract class Arma {
      * Es lo que usa el PUT del CRUD: no reemplaza el arma entera (eso rompería el daño,
      * la precisión, etc., que son intrínsecos al arma y se protegen reconstruyendo el
      * objeto si hace falta cambiarlos), solo reasigna los dos campos que tiene sentido
-     * tocar sin violar las reglas de construcción.
+     * tocar sin violar las reglas de construcción. Sin validar: ArmaServiceImpl valida
+     * antes de llamarlo.
      */
     public void reasignar(String nuevoEquipo, float nuevoPrecio) {
-        if (!"T".equals(nuevoEquipo) && !"CT".equals(nuevoEquipo)) {
-            throw new IllegalArgumentException("El equipo debe ser T o CT");
-        }
-        if (nuevoPrecio < 0) {
-            throw new IllegalArgumentException("El precio no puede ser negativo");
-        }
         this.equipo = nuevoEquipo;
         this.precio = nuevoPrecio;
     }

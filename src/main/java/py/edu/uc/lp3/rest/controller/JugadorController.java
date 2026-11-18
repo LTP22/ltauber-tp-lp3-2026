@@ -1,9 +1,11 @@
 package py.edu.uc.lp3.rest.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import py.edu.uc.lp3.domain.*;
+import py.edu.uc.lp3.service.JugadorService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,10 +16,13 @@ public class JugadorController {
 
     private final Map<String, Jugador> jugadores = new HashMap<>();
 
+    @Autowired
+    private JugadorService jugadorService;
+
     @PostMapping
     public Map<String, Object> crearJugador(@RequestParam String nombre) {
         String id = String.valueOf(jugadores.size() + 1);
-        Jugador jugador = new Jugador(nombre);
+        Jugador jugador = jugadorService.crear(nombre);
         jugadores.put(id, jugador);
 
         Map<String, Object> respuesta = new HashMap<>();

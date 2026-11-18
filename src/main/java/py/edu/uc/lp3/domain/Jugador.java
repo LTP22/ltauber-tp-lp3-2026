@@ -7,10 +7,8 @@ public class Jugador {
     protected String nombre;
     protected List<Arma> inventario;
 
+    /** Sin validar (observación cerrada de POO-08): JugadorService valida antes de construir. */
     public Jugador(String nombre) {
-        if (nombre == null || nombre.isBlank()) {
-            throw new IllegalArgumentException("El nombre del jugador es obligatorio");
-        }
         this.nombre = nombre;
         this.inventario = new ArrayList<>();
     }
