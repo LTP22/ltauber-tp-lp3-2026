@@ -4,7 +4,7 @@ API REST de modelado de armas de Counter-Strike 2, implementada con Spring Boot.
 
 ## Entrega
 
-- **Commit de la solución (POO-08 — CRUD, H2, Insomnia, observaciones cerradas):** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/aa54583bc3f5c79a4962886bb5b9a1c4cb0183c8
+- **Commit de la solución (POO-08 — CRUD, H2, Insomnia, observaciones cerradas):** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/3c1cb64d45d1ad1fadc2683960efa78df5c68524
 - **Commit de la solución (POO-06 — paquetes y constructores):** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/0e476bcff2e6a45e3d798413362c29c4326f3ab5
 - **Bitácora de IA:** [BITACORA.md](BITACORA.md)
 - **Especificaciones (POO-08):** [ESPECIFICACIONES-POO-08.md](ESPECIFICACIONES-POO-08.md)
