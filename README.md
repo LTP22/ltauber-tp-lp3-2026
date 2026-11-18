@@ -4,13 +4,23 @@ API REST de modelado de armas de Counter-Strike 2, implementada con Spring Boot.
 
 ## Entrega
 
-- **Commit de la solución (POO-08 — CRUD, H2, Insomnia):** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/02b097ffe8eae1dab2007b9fdcc08826822ed881
+- **Commit de la solución (POO-08 — CRUD, H2, Insomnia, observaciones cerradas):** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/aa54583bc3f5c79a4962886bb5b9a1c4cb0183c8
 - **Commit de la solución (POO-06 — paquetes y constructores):** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/0e476bcff2e6a45e3d798413362c29c4326f3ab5
 - **Bitácora de IA:** [BITACORA.md](BITACORA.md)
 - **Especificaciones (POO-08):** [ESPECIFICACIONES-POO-08.md](ESPECIFICACIONES-POO-08.md)
 - **Commit de las especificaciones (POO-08):** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/dc069db8615e146d61b9b0b7877b35ac7ddec5a4
 - **Especificaciones (POO-06):** [ESPECIFICACIONES.md](ESPECIFICACIONES.md)
 - **Colección de Insomnia:** [insomnia/CS2-POO08-Insomnia.json](insomnia/CS2-POO08-Insomnia.json)
+
+## Situación de POO-08
+
+Entrega corregida: 19,5/24 ("cumple"), con 3 observaciones. **Las tres quedaron cerradas:**
+
+| # | Observación de la corrección | Cómo se cerró |
+|---|---|---|
+| 1 | Entrega y arranque (-0,5): el enlace a Classroom usaba el hash abreviado (`02b097f`) en vez del hash completo de 40 caracteres | Todos los enlaces a commits de este README y de `ESPECIFICACIONES-POO-08.md` usan el hash completo desde el commit `0cc788d` |
+| 2 | Organización en paquetes (-1): `Arma`, `ArmaDeFuego`, `Granada` y `Jugador` (el dominio) lanzaban `IllegalArgumentException` al validar, en vez de que esa lógica viviera en la capa service | Se movió toda la validación a `DominioValidador` (paquete `service`); `Arma`/`ArmaDeFuego`/`Granada`/`Jugador` ya no tienen ningún `throw` — ver sección "Ocultamiento e invariantes (POO-09)" más abajo. Commit `aa54583` |
+| 3 | Documentación (0/3): diagrama Mermaid y "Conceptos implementados" desactualizados (atributos marcados `protected` cuando ya eran `private`, `Granada` descrita como abstracta) + más de 3 errores de ortografía en Javadoc/comentarios | Diagrama y texto corregidos para reflejar el código actual; se revisó y corrigió la ortografía en los 13 archivos `.java` tocados en POO-08 y en `ESPECIFICACIONES-POO-08.md`. Commits `971e500` y `0cc788d` |
 
 ## Objetivo
 
@@ -26,8 +36,9 @@ py.edu.uc.lp3
 ├── domain                      reglas del juego (Arma, Granada, Jugador, ...) y la interfaz Accionable
 │   └── exception                DominioException, RecursoNoEncontradoException, OperacionInvalidaException
 ├── repository                  ArmaRepository (Spring Data JPA)
-├── service                     ArmaService (interfaz) y ResultadoCombate
-│   └── impl                     ArmaServiceImpl
+├── service                     ArmaService, JugadorService (interfaces), ResultadoCombate,
+│                                DominioValidador (valida; el dominio ya no lo hace)
+│   └── impl                     ArmaServiceImpl, JugadorServiceImpl
 └── rest.controller              servicios REST (IndexController, ArmaController, JugadorController,
     │                            ArmaCrudController, SimulacionController, DominioExceptionHandler)
     └── dto                      ArmaRequest, ReasignacionRequest (DTOs de transporte, no son dominio)
@@ -301,6 +312,16 @@ DominioException (abstracta, RuntimeException)
 `DominioExceptionHandler` (`@RestControllerAdvice`) tiene un `@ExceptionHandler` por tipo, así que el cliente distingue a las hermanas por el código HTTP y por el JSON. Es unchecked (`RuntimeException`) para que Spring la intercepte sin forzar un `try/catch` en cada método del service: son reglas de negocio rotas, no condiciones que el llamador pueda resolver ahí mismo.
 
 **¿Quién lanza la excepción, el controller o el objeto del juego?** Ninguno de los dos directamente: `ArmaDeFuego.disparar()` y `Granada.lanzar()` siguen devolviendo un resultado silencioso (`0` balas, `false`) como en POO-06, para no romper las pruebas unitarias que ya dependían de ese contrato. Quien decide convertir esa imposibilidad en una excepción del dominio es `ArmaServiceImpl`: es la capa que conoce tanto el repositorio (sabe si el id existe) como el dominio (sabe cuándo una regla se rompió), así que es la única que tiene el contexto completo para decidirlo.
+
+## Ocultamiento e invariantes (observación cerrada de POO-08)
+
+`Arma`, `ArmaDeFuego`, `Granada` y `Jugador` ya no validan: sus constructores y `Arma.reasignar()` solo guardan estado, sin ningún `throw`. Toda la validación vive en `DominioValidador` (clase estática en el paquete `service`), y la llaman:
+
+- `ArmaServiceImpl.crear(Arma)` y `.reasignar(...)`, antes de persistir — así el CRUD sigue rechazando valores ilegales con 400.
+- `JugadorServiceImpl.crear(String)` — `Jugador` no es `@Entity` (su inventario sigue en memoria), pero igual es dominio, así que su validación también salió del constructor.
+- Las armas de catálogo (`Pistola`, `Rifle`, `Subfusil`, `Francotirador`, `GranaFlash`, `GranaHumo`, `GranaDetonadora`): no son `@Entity` ni fueron nombradas en la observación, pero comparten el constructor completo de `ArmaDeFuego`/`Granada` (vía `super(...)`), así que sin esto `/arma/{tipo}` dejaría de rechazar valores inválidos. Llaman a `DominioValidador` **después** de `super(...)`: el objeto nunca llega a devolverse si la validación falla, pero quien lanza la excepción es el validador (service), no la Entity.
+
+Los 12 tests de `ArmaTest` (incluidos los dos que esperan `IllegalArgumentException` al construir) siguen pasando sin modificarse, porque el comportamiento observable es idéntico; lo único que cambió es **quién** lanza la excepción.
 
 ## Endpoints
 
