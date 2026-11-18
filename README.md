@@ -4,11 +4,11 @@ API REST de modelado de armas de Counter-Strike 2, implementada con Spring Boot.
 
 ## Entrega
 
-- **Commit de la solución (POO-08 — CRUD, H2, Insomnia):** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/02b097f
+- **Commit de la solución (POO-08 — CRUD, H2, Insomnia):** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/02b097ffe8eae1dab2007b9fdcc08826822ed881
 - **Commit de la solución (POO-06 — paquetes y constructores):** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/0e476bcff2e6a45e3d798413362c29c4326f3ab5
 - **Bitácora de IA:** [BITACORA.md](BITACORA.md)
 - **Especificaciones (POO-08):** [ESPECIFICACIONES-POO-08.md](ESPECIFICACIONES-POO-08.md)
-- **Commit de las especificaciones (POO-08):** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/dc069db
+- **Commit de las especificaciones (POO-08):** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/dc069db8615e146d61b9b0b7877b35ac7ddec5a4
 - **Especificaciones (POO-06):** [ESPECIFICACIONES.md](ESPECIFICACIONES.md)
 - **Colección de Insomnia:** [insomnia/CS2-POO08-Insomnia.json](insomnia/CS2-POO08-Insomnia.json)
 
@@ -50,22 +50,22 @@ classDiagram
     }
 
     class Arma {
-        #int danio
-        #float precio
-        #String equipo
-        #float peso
+        -int danio
+        -float precio
+        -String equipo
+        -float peso
         +comprar()
         +inspeccionar()
         +getComportamiento()* String
     }
 
     class ArmaDeFuego {
-        #float precision
-        #int balasCargador
-        #int cargadores
-        #float retroceso
-        #float tiempoRecarga
-        #String animacion
+        -float precision
+        -int balasCargador
+        -int cargadores
+        -float retroceso
+        -float tiempoRecarga
+        -String animacion
         -int balasEnCargador
         +disparar() int
         +disparar(float distancia) int
@@ -100,10 +100,10 @@ classDiagram
     }
 
     class Granada {
-        #float radioExplosion
-        #float distanciaLanzamiento
-        #float aturdimiento
-        #float visibilidad
+        -float radioExplosion
+        -float distanciaLanzamiento
+        -float aturdimiento
+        -float visibilidad
         -boolean lanzada
         +lanzar() boolean
         +explotar()
@@ -154,10 +154,10 @@ classDiagram
     class Arma {
         <<entity>>
         -Long id
-        #int danio
-        #float precio
-        #String equipo
-        #float peso
+        -int danio
+        -float precio
+        -String equipo
+        -float peso
         +reasignar(String equipo, float precio)
         +getComportamiento()* String
     }
@@ -429,11 +429,11 @@ El controller declara variables de tipo `Arma`, pero construye instancias concre
 
 ## Conceptos implementados
 
-- **Abstracción**: `Arma` y `Granada` son clases abstractas. `Arma` define el contrato `getComportamiento()`.
+- **Abstracción**: `Arma` es abstracta y define el contrato `getComportamiento()`. `Granada` dejó de ser abstracta al volverse entidad JPA concreta (POO-08): el CRUD la instancia directamente, igual que a `ArmaDeFuego`.
 - **Herencia**: dos ramas independientes (`ArmaDeFuego`, `Granada`) y subclases concretas. Ahora también es una jerarquía JPA (`@Inheritance(SINGLE_TABLE)`).
 - **Sobreescritura**: `getComportamiento()` se implementa en cada rama y en las granadas específicas.
 - **Sobrecarga**: constructores simples y completos; `disparar()` y `dispararConTodas()` con y sin distancia.
-- **Encapsulamiento**: atributos `protected` en las clases base y `private` en el estado mutable; sin setters públicos. El constructor vacío que exige JPA es `protected`, no `public`: solo Hibernate puede saltarse las validaciones, instanciando por reflexión.
+- **Encapsulamiento**: atributos `private` en `Arma`, `ArmaDeFuego` y `Granada` (las tres clases persistidas); sin setters públicos. El constructor vacío que exige JPA es `protected`, no `public`: solo Hibernate puede saltarse las validaciones, instanciando por reflexión.
 - **Validación**: los constructores rechazan estados ilegales.
 - **Protocolo de dominio (POO-07)**: interfaz `Accionable`, implementada por `ArmaDeFuego` y `Granada`.
 - **Persistencia (POO-08)**: `Arma`/`ArmaDeFuego`/`Granada` se guardan en H2 vía `ArmaRepository` (Spring Data JPA).

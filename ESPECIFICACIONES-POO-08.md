@@ -4,7 +4,7 @@
 **Asignatura:** Lenguaje de Programación 3 (CYT646), ejercicio POO-08
 **Dominio:** Counter-Strike 2
 **Repositorio:** https://github.com/LTP22/ltauber-tp-lp3-2026
-**Commit de la solución:** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/02b097f
+**Commit de la solución:** https://github.com/LTP22/ltauber-tp-lp3-2026/commit/02b097ffe8eae1dab2007b9fdcc08826822ed881
 
 ---
 
@@ -111,7 +111,7 @@ curl.exe -i -X POST http://localhost:8080/armas -H "Content-Type: application/js
 # Endpoint que usa Accionable (sirve para armaDeFuego o granada, mismo endpoint)
 curl.exe http://localhost:8080/armas/{id}/estado
 
-# Simulacion de combate (usa un id de armaDeFuego y uno de granada)
+# Simulación de combate (usa un id de armaDeFuego y uno de granada)
 curl.exe -X POST "http://localhost:8080/simulaciones/combate?armaDeFuegoId={id}&granadaId={id}"
 # -> {"danioInfligido":19,"balasRestantes":11,"granadaLanzada":true}
 
@@ -137,7 +137,7 @@ Importar `insomnia/CS2-POO08-Insomnia.json` (`Create` → `Import From File`). T
 
 El enlace exacto al commit que contiene la solución (código e Insomnia; ver también "Commit de las especificaciones" en el README, que apunta al commit que agrega este documento):
 
-**https://github.com/LTP22/ltauber-tp-lp3-2026/commit/02b097f**
+**https://github.com/LTP22/ltauber-tp-lp3-2026/commit/02b097ffe8eae1dab2007b9fdcc08826822ed881**
 
 ---
 
