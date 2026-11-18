@@ -16,12 +16,12 @@ import py.edu.uc.lp3.service.ArmaService;
 import py.edu.uc.lp3.service.ResultadoCombate;
 
 /**
- * Quien lanza la excepcion: no el objeto del juego (disparar()/lanzar() siguen devolviendo
+ * Quién lanza la excepción: no el objeto del juego (disparar()/lanzar() siguen devolviendo
  * un resultado silencioso -0 balas, false- como en POO-06, para no romper las pruebas
  * unitarias que ya dependen de ese contrato) ni el controller (que solo traduce HTTP).
- * Es este service: conoce el repositorio (sabe si el id existe) y el dominio (sabe cuando
- * una regla se rompe), asi que es la capa que puede convertir una imposibilidad del juego
- * en una excepcion del dominio.
+ * Es este service: conoce el repositorio (sabe si el id existe) y el dominio (sabe cuándo
+ * una regla se rompe), así que es la capa que puede convertir una imposibilidad del juego
+ * en una excepción del dominio.
  */
 @Service
 public class ArmaServiceImpl implements ArmaService {

@@ -10,7 +10,7 @@ import jakarta.persistence.InheritanceType;
 
 /**
  * Familia persistida en H2: Arma (padre) y sus dos hijas directas,
- * ArmaDeFuego y Granada, que ya sobreescribian getComportamiento() desde POO-06.
+ * ArmaDeFuego y Granada, que ya sobreescribían getComportamiento() desde POO-06.
  * Single table: la familia es chica (tres clases) y evita JOINs para un CRUD simple;
  * el costo es que la tabla tiene columnas nulas para los atributos exclusivos de cada hija.
  */
@@ -29,10 +29,10 @@ public abstract class Arma {
     private float peso;
 
     /**
-     * Constructor vacio exigido por JPA para reconstruir el objeto al leerlo de la base.
-     * Queda protected (no public) a proposito: ninguna clase fuera de este paquete puede
-     * crear un arma sin invariantes: solo Hibernate, que instancia por reflexion y recien
-     * despues puebla los campos, antes de que cualquier otra capa vea el objeto.
+     * Constructor vacío exigido por JPA para reconstruir el objeto al leerlo de la base.
+     * Queda protected (no public) a propósito: ninguna clase fuera de este paquete puede
+     * crear un arma sin invariantes: solo Hibernate, que instancia por reflexión y recién
+     * después puebla los campos, antes de que cualquier otra capa vea el objeto.
      */
     protected Arma() {
     }
@@ -59,11 +59,11 @@ public abstract class Arma {
     public abstract String getComportamiento();
 
     /**
-     * Unico mensaje que puede cambiar precio y equipo despues de construida el arma.
+     * Único mensaje que puede cambiar precio y equipo después de construida el arma.
      * Es lo que usa el PUT del CRUD: no reemplaza el arma entera (eso rompería el daño,
-     * la precision, etc., que son intrinsecos al arma y se protegen reconstruyendo el
+     * la precisión, etc., que son intrínsecos al arma y se protegen reconstruyendo el
      * objeto si hace falta cambiarlos), solo reasigna los dos campos que tiene sentido
-     * tocar sin violar las reglas de construccion.
+     * tocar sin violar las reglas de construcción.
      */
     public void reasignar(String nuevoEquipo, float nuevoPrecio) {
         if (!"T".equals(nuevoEquipo) && !"CT".equals(nuevoEquipo)) {

@@ -16,14 +16,14 @@ public class ArmaDeFuego extends Arma implements Accionable {
     private String animacion;
     private int balasEnCargador;
 
-    /** Constructor vacio para JPA, ver el de Arma. */
+    /** Constructor vacío para JPA, ver el de Arma. */
     protected ArmaDeFuego() {
         super();
     }
 
     /**
      * Antes era protected (solo la usaban las hijas concretas como Pistola). Ahora es
-     * public porque el CRUD persistido necesita crear armas de fuego genericas, no
+     * public porque el CRUD persistido necesita crear armas de fuego genéricas, no
      * atadas a un modelo concreto como Pistola o Rifle.
      */
     public ArmaDeFuego(int danio, float precio, String equipo, float peso,

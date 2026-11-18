@@ -11,14 +11,14 @@ import py.edu.uc.lp3.domain.exception.OperacionInvalidaException;
 import py.edu.uc.lp3.domain.exception.RecursoNoEncontradoException;
 
 /**
- * Un handler por tipo de excepcion, para que el cliente distinga a las hermanas por el
- * codigo HTTP: 404 cuando el recurso no existe, 409 cuando existe pero la operacion pedida
- * rompe una regla de juego. Tambien centraliza aqui el manejo de IllegalArgumentException
- * (400, valores que rompen un invariante de construccion): ArmaController y JugadorController
- * ya tenian su propio @ExceptionHandler local para eso, pero los controllers nuevos
- * (ArmaCrudController, SimulacionController) no lo tenian, y sin este advice global un
- * POST invalido se iba como 500 en vez de 400. Un handler local en un controller sigue
- * teniendo prioridad sobre este si existe, asi que no cambia el comportamiento de los
+ * Un handler por tipo de excepción, para que el cliente distinga a las hermanas por el
+ * código HTTP: 404 cuando el recurso no existe, 409 cuando existe pero la operación pedida
+ * rompe una regla de juego. También centraliza aquí el manejo de IllegalArgumentException
+ * (400, valores que rompen un invariante de construcción): ArmaController y JugadorController
+ * ya tenían su propio @ExceptionHandler local para eso, pero los controllers nuevos
+ * (ArmaCrudController, SimulacionController) no lo tenían, y sin este advice global un
+ * POST inválido se iba como 500 en vez de 400. Un handler local en un controller sigue
+ * teniendo prioridad sobre este si existe, así que no cambia el comportamiento de los
  * controllers viejos.
  */
 @RestControllerAdvice

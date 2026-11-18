@@ -12,14 +12,14 @@ public class Granada extends Arma implements Accionable {
     private float visibilidad;
     private boolean lanzada;
 
-    /** Constructor vacio para JPA, ver el de Arma. */
+    /** Constructor vacío para JPA, ver el de Arma. */
     protected Granada() {
         super();
     }
 
     /**
      * Antes era protected (solo la usaban las hijas concretas como GranaFlash). Ahora es
-     * public porque el CRUD persistido necesita crear granadas genericas.
+     * public porque el CRUD persistido necesita crear granadas genéricas.
      */
     public Granada(int danio, float precio, String equipo, float peso,
                       float radioExplosion, float distanciaLanzamiento,

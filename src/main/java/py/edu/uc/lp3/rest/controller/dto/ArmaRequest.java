@@ -1,12 +1,12 @@
 package py.edu.uc.lp3.rest.controller.dto;
 
 /**
- * DTO de transporte para crear armas via POST. No es una entidad de dominio, asi que sus
- * getters/setters publicos no comprometen el ocultamiento (ese se exige sobre Arma,
+ * DTO de transporte para crear armas vía POST. No es una entidad de dominio, así que sus
+ * getters/setters públicos no comprometen el ocultamiento (ese se exige sobre Arma,
  * ArmaDeFuego y Granada, no sobre un objeto que solo sirve para traer datos del body JSON).
- * El campo "tipo" discrimina que constructor de negocio usar; lo interpreta el controller
- * a mano en vez de delegarlo a la deserializacion polimorfica de Jackson, para no tener
- * que relajar la visibilidad de los constructores de dominio mas de lo necesario.
+ * El campo "tipo" discrimina qué constructor de negocio usar; lo interpreta el controller
+ * a mano en vez de delegarlo a la deserialización polimórfica de Jackson, para no tener
+ * que relajar la visibilidad de los constructores de dominio más de lo necesario.
  */
 public class ArmaRequest {
 

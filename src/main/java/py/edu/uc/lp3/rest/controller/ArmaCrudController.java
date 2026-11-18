@@ -25,10 +25,10 @@ import py.edu.uc.lp3.service.ArmaService;
 
 /**
  * CRUD REST sobre la familia persistida (Arma, ArmaDeFuego, Granada). El JSON arma a
- * mano el campo "tipo" segun el tipo real del objeto -mismo patron que ya usaba
+ * mano el campo "tipo" según el tipo real del objeto -mismo patrón que ya usaba
  * JugadorController para "comportamiento"- en vez de anotar Arma con @JsonTypeInfo:
- * esa anotacion tambien afectaria a los endpoints viejos de /arma/{tipo} (que no son
- * parte de esta familia persistida y ya funcionan bien tal como estan).
+ * esa anotación también afectaría a los endpoints viejos de /arma/{tipo} (que no son
+ * parte de esta familia persistida y ya funcionan bien tal como están).
  */
 @RestController
 @RequestMapping("/armas")

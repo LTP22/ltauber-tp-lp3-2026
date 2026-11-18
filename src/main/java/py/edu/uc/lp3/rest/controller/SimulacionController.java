@@ -10,8 +10,8 @@ import py.edu.uc.lp3.service.ArmaService;
 import py.edu.uc.lp3.service.ResultadoCombate;
 
 /**
- * Simulacion de combate: aplica las dos reglas de negocio (disparar consume una bala y
- * calcula dano; lanzar una granada la marca como usada, sin vuelta atras) sobre un arma
+ * Simulación de combate: aplica las dos reglas de negocio (disparar consume una bala y
+ * calcula daño; lanzar una granada la marca como usada, sin vuelta atrás) sobre un arma
  * de fuego y una granada ya persistidas, y guarda el resultado. Un GET posterior a
  * /armas/{id} muestra el estado actualizado de cada una.
  */
